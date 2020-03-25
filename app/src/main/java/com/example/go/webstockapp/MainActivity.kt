@@ -6,22 +6,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.go.webstockapp.di.component.AppComponent
-import com.example.go.webstockapp.di.component.DaggerAppComponent
-import com.example.go.webstockapp.di.module.AppModule
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.android.AndroidInjection
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var appComponent: AppComponent
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(application))
-            .build()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
