@@ -20,4 +20,7 @@ interface LinkDao {
 
     @Delete
     fun delete(link: Link)
+
+    @Query("delete from link")
+    fun deleteAll()
 }
