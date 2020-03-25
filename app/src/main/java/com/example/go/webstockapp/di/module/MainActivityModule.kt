@@ -1,6 +1,6 @@
 package com.example.go.webstockapp.di.module
 
-import com.example.go.webstockapp.MainActivity
+import com.example.go.webstockapp.ui.MainActivity
 import com.example.go.webstockapp.di.component.MainActivitySubcomponent
 import dagger.Binds
 import dagger.Module

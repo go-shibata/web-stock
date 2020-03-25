@@ -1,6 +1,6 @@
 package com.example.go.webstockapp.di.component
 
-import com.example.go.webstockapp.MainActivity
+import com.example.go.webstockapp.ui.MainActivity
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
