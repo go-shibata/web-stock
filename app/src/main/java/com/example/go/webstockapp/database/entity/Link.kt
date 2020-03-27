@@ -6,12 +6,10 @@ import java.util.*
 
 @Entity(tableName = "link")
 data class Link(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long,
-
     var title: String,
     var url: String,
     var savedDate: Date,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var isChecked: Boolean = false,
     var checkedDate: Date? = null,
     var notifyDate: Date? = null
