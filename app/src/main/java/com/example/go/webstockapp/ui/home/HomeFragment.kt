@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.go.webstockapp.R
+import com.example.go.webstockapp.database.entity.Link
 import com.example.go.webstockapp.databinding.DialogAddLinkBinding
 import com.example.go.webstockapp.databinding.FragmentHomeBinding
 import com.example.go.webstockapp.di.ViewModelFactory
@@ -23,6 +24,11 @@ class HomeFragment : Fragment() {
     lateinit var factory: ViewModelFactory<HomeViewModel>
 
     private val viewModel: HomeViewModel by activityViewModels { factory }
+    private val onClickLinkListener = object : LinkListAdapter.OnClickLinkListener {
+        override fun onClickLink(link: Link) {
+            viewModel.deleteLink(link)
+        }
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -38,7 +44,9 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.fragment = this
         binding.linkList.apply {
-            adapter = LinkListAdapter(this@HomeFragment, viewModel)
+            adapter = LinkListAdapter(this@HomeFragment, viewModel).apply {
+                setOnClickLinkListener(onClickLinkListener)
+            }
             layoutManager = LinearLayoutManager(context)
         }
         return binding.root

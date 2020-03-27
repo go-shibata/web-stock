@@ -33,4 +33,12 @@ class HomeViewModel @Inject constructor(
                 .insert(link)
         }
     }
+
+    fun deleteLink(link: Link) {
+        CoroutineScope(Dispatchers.Default).launch {
+            MyDatabase.getInstance(getApplication())
+                .linkDao()
+                .delete(link)
+        }
+    }
 }
