@@ -24,7 +24,7 @@ abstract class MyDatabase : RoomDatabase() {
                         context,
                         MyDatabase::class.java,
                         "webStock.db"
-                    ).allowMainThreadQueries().build()
+                    ).build()
                     .also { instance = it }
             }
     }
