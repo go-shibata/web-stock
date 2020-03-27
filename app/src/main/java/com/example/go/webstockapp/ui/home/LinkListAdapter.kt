@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.example.go.webstockapp.R
 import com.example.go.webstockapp.databinding.ItemLinkListBinding
+import com.example.go.webstockapp.network.faviconUrl
+import com.squareup.picasso.Picasso
 
 class LinkListAdapter(
     owner: LifecycleOwner,
@@ -29,6 +32,10 @@ class LinkListAdapter(
         val data = viewModel.links.value?.get(position)
         holder.apply {
             binding.link = data
+            Picasso.get()
+                .load(data?.domain?.faviconUrl())
+                .placeholder(R.drawable.ic_image_gray_24dp)
+                .into(binding.icon)
         }
     }
 
