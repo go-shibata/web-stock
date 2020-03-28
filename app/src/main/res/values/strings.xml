@@ -10,6 +10,7 @@
     <string name="insert_link_dialog_title">リンクの追加</string>
     <string name="insert_link_url">URL</string>
     <string-array name="click_link_list">
+        <item>開く</item>
         <item>削除</item>
     </string-array>
 </resources>

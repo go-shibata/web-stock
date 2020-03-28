@@ -30,7 +30,8 @@ class HomeFragment : Fragment() {
                 .setTitle(link.title)
                 .setItems(R.array.click_link_list) { dialog, which ->
                     when (which) {
-                        0 -> viewModel.deleteLink(link)
+                        0 -> viewModel.openLink(link, requireActivity())
+                        1 -> viewModel.deleteLink(link)
                     }
                     dialog.dismiss()
                 }

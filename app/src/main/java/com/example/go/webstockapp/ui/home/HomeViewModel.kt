@@ -1,6 +1,9 @@
 package com.example.go.webstockapp.ui.home
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.go.webstockapp.database.MyDatabase
@@ -32,6 +35,11 @@ class HomeViewModel @Inject constructor(
                 .linkDao()
                 .insert(link)
         }
+    }
+
+    fun openLink(link: Link, context: Context) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link.url))
+        context.startActivity(intent)
     }
 
     fun deleteLink(link: Link) {
