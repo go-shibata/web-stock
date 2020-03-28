@@ -26,7 +26,18 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by activityViewModels { factory }
     private val onClickLinkListener = object : LinkListAdapter.OnClickLinkListener {
         override fun onClickLink(link: Link) {
-            viewModel.deleteLink(link)
+            val builder = AlertDialog.Builder(requireContext())
+                .setTitle(link.title)
+                .setItems(R.array.click_link_list) { dialog, which ->
+                    when (which) {
+                        0 -> viewModel.deleteLink(link)
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton(R.string.cancel, null)
+            MyDialogFragment()
+                .setBuilder(builder)
+                .show(parentFragmentManager, null)
         }
     }
 
