@@ -68,6 +68,11 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
 
+    // workManager
+    def workVersion = '1.0.1'
+    implementation "android.arch.work:work-runtime:$workVersion"
+    implementation "android.arch.work:work-runtime-ktx:$workVersion"
+
     // dagger
     def daggerVersion = '2.27'
     implementation "com.google.dagger:dagger:$daggerVersion"

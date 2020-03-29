@@ -11,6 +11,10 @@
     <string name="insert_link_url">URL</string>
     <string-array name="click_link_list">
         <item>開く</item>
+        <item>通知の作成</item>
         <item>削除</item>
     </string-array>
+
+    <string name="notification_small_message">指定された時刻になりました</string>
+    <string name="notification_big_message">指定された時刻になりました\n%1$s を確認してみましょう</string>
 </resources>
