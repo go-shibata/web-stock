@@ -16,6 +16,7 @@ import com.example.go.webstockapp.databinding.DialogAddLinkBinding
 import com.example.go.webstockapp.databinding.FragmentHomeBinding
 import com.example.go.webstockapp.di.ViewModelFactory
 import com.example.go.webstockapp.ui.MyDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -23,6 +24,8 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory<HomeViewModel>
+
+    private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by activityViewModels { factory }
     private val onClickLinkListener = object : LinkListAdapter.OnClickLinkListener {
@@ -54,7 +57,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.fragment = this
         binding.linkList.apply {
@@ -84,6 +87,18 @@ class HomeFragment : Fragment() {
     fun createNotification(link: Link) {
         val onDateTimeSetListener = object : MyDateTimePickerDialog.OnDateTimeSetListener {
             override fun onDateTimeSet(calendar: Calendar) {
+                Snackbar.make(
+                    binding.root,
+                    getString(
+                        R.string.notification_create_message,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE)
+                    ),
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 viewModel.notifyLink(link, calendar.timeInMillis)
             }
         }

@@ -15,6 +15,7 @@
         <item>削除</item>
     </string-array>
 
+    <string name="notification_create_message">通知を%1$d/%2$d/%3$d %4$d:%5$dにセットしました</string>
     <string name="notification_small_message">指定された時刻になりました</string>
     <string name="notification_big_message">指定された時刻になりました\n%1$s を確認してみましょう</string>
 </resources>
