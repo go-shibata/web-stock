@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.go.webstockapp.database.dao.LinkDao
 import com.example.go.webstockapp.database.entity.Link
 
-@Database(entities = [Link::class], version = 1)
+@Database(entities = [Link::class], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class MyDatabase : RoomDatabase() {
 
