@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun notifyLink(link: Link) {
+    fun notifyLink(link: Link, timeInMillis: Long) {
         val request = OneTimeWorkRequestBuilder<NotificationWorker>()
             .setInputData(
                 Data.Builder()
@@ -51,7 +51,7 @@ class HomeViewModel @Inject constructor(
                     .putString(NotificationWorker.KEY_URL, link.url)
                     .build()
             )
-            .setInitialDelay(5, TimeUnit.SECONDS)
+            .setInitialDelay(timeInMillis - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
             .build()
         WorkManager.getInstance()
             .beginUniqueWork("notification", ExistingWorkPolicy.REPLACE, request)

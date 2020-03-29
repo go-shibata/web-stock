@@ -1,10 +1,13 @@
 package com.example.go.webstockapp.ui.home
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,7 +34,7 @@ class HomeFragment : Fragment() {
                 .setItems(R.array.click_link_list) { dialog, which ->
                     when (which) {
                         0 -> viewModel.openLink(link, requireActivity())
-                        1 -> viewModel.notifyLink(link)
+                        1 -> createNotification(link)
                         2 -> viewModel.deleteLink(link)
                     }
                     dialog.dismiss()
@@ -78,5 +81,22 @@ class HomeFragment : Fragment() {
         MyDialogFragment()
             .setBuilder(builder)
             .show(parentFragmentManager, null)
+    }
+
+    fun createNotification(link: Link) {
+        val onDateTimeSetListener = object : MyTimePickerDialog.OnDateTimeSetListener {
+            override fun onDateTimeSet(timeInMillis: Long) {
+                viewModel.notifyLink(link, timeInMillis)
+            }
+        }
+        val onDateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            MyTimePickerDialog().apply {
+                setDate(year, month, dayOfMonth)
+                setOnDateTimeSetListener(onDateTimeSetListener)
+            }.show(parentFragmentManager, null)
+        }
+        MyDatePickerDialog().apply {
+            setOnDateSetListener(onDateSetListener)
+        }.show(parentFragmentManager, null)
     }
 }
