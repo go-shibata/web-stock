@@ -2,6 +2,8 @@
 
 Room / WorkManager などの練習
 
+~~BottomNavigation は飾り...~~
+
 #### ScreenShots
 |   |   |
 |---|---|
