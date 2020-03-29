@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">WebStockApp</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="insert_link_dialog_title">リンクの追加</string>
+    <string name="insert_link_url">URL</string>
+    <string-array name="click_link_list">
+        <item>開く</item>
+        <item>通知の作成</item>
+        <item>削除</item>
+    </string-array>
+
+    <string name="notification_create_message">通知を%1$d/%2$02d/%3$02d %4$02d:%5$02dにセットしました</string>
+    <string name="notification_small_message">指定された時刻になりました</string>
+    <string name="notification_big_message">指定された時刻になりました\n%1$s を確認してみましょう</string>
 </resources>
