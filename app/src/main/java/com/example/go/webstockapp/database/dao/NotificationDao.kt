@@ -15,7 +15,7 @@ interface NotificationDao {
     @Query("select * from notification where linkId = :linkId")
     fun getNotificationByLinkId(linkId: Long): Notification
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(notification: Notification)
 
     @Update
