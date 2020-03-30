@@ -12,6 +12,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.go.webstockapp.database.MyDatabase
 import com.example.go.webstockapp.database.entity.Link
+import com.example.go.webstockapp.database.entity.Notification
 import com.example.go.webstockapp.work.NotificationWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,7 @@ class HomeViewModel @Inject constructor(
                 Data.Builder()
                     .putString(NotificationWorker.KEY_TITLE, link.title)
                     .putString(NotificationWorker.KEY_URL, link.url)
+                    .putLong(NotificationWorker.KEY_ID, link.id)
                     .build()
             )
             .setInitialDelay(timeInMillis - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -56,6 +58,18 @@ class HomeViewModel @Inject constructor(
         WorkManager.getInstance()
             .beginUniqueWork("notification", ExistingWorkPolicy.REPLACE, request)
             .enqueue()
+
+        CoroutineScope(Dispatchers.Default).launch {
+            val notification = Notification(
+                Date(System.currentTimeMillis()),
+                Date(timeInMillis),
+                link.id,
+                request.id
+            )
+            MyDatabase.getInstance(getApplication())
+                .notificationDao()
+                .insert(notification)
+        }
     }
 
     fun openLink(link: Link, context: Context) {
