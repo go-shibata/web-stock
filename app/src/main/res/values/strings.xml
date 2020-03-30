@@ -18,4 +18,10 @@
     <string name="notification_create_message">通知を%1$d/%2$02d/%3$02d %4$02d:%5$02dにセットしました</string>
     <string name="notification_small_message">指定された時刻になりました</string>
     <string name="notification_big_message">指定された時刻になりました\n%1$s を確認してみましょう</string>
+
+    <string name="click_notification_title">%1$sの通知</string>
+    <string-array name="click_notification_list">
+        <item>編集</item>
+        <item>削除</item>
+    </string-array>
 </resources>

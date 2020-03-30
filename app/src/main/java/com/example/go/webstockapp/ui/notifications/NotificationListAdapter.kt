@@ -6,7 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.go.webstockapp.R
-import com.example.go.webstockapp.database.entity.Notification
 import com.example.go.webstockapp.databinding.ItemNotificationListBinding
 import com.example.go.webstockapp.network.faviconUrl
 import com.squareup.picasso.Picasso
@@ -43,7 +42,7 @@ class NotificationListAdapter(
 
             binding.root.setOnClickListener {
                 checkNotNull(data)
-                listener?.onClickNotification(data.notification)
+                listener?.onClickNotification(data)
             }
         }
     }
@@ -56,6 +55,6 @@ class NotificationListAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     interface OnClickNotificationListener {
-        fun onClickNotification(notification: Notification)
+        fun onClickNotification(notification: NotificationAndLink)
     }
 }
