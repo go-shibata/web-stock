@@ -11,4 +11,6 @@ class NotificationAndLink {
 
     @Relation(parentColumn = "linkId", entityColumn = "id")
     lateinit var link: List<Link>
+
+    fun getLink(): Link = link.single()
 }
