@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "notification")
 @ForeignKey(entity = Link::class, parentColumns = ["id"], childColumns = ["linkId"])
-class Notification(
+data class Notification(
     var savedDate: Date,
     var notifyDate: Date,
     var linkId: Long,
