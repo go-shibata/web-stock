@@ -31,10 +31,10 @@ class NotificationListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = viewModel.notifications.value?.get(position)
         holder.apply {
-            binding.notification = data
+            binding.notification = data?.notification
             binding.root.setOnClickListener {
                 checkNotNull(data)
-                listener?.onClickNotification(data)
+                listener?.onClickNotification(data.notification)
             }
         }
     }

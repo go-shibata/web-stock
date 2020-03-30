@@ -9,5 +9,5 @@ class NotificationsViewModel @Inject constructor(
     app: Application
 ) : AndroidViewModel(app) {
 
-    val notifications = MyDatabase.getInstance(app).notificationDao().getAllNotifications()
+    val notifications = MyDatabase.getInstance(app).notificationDao().getAllNotificationWithLink()
 }

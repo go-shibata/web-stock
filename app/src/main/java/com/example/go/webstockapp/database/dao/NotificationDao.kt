@@ -3,11 +3,16 @@ package com.example.go.webstockapp.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.go.webstockapp.database.entity.Notification
+import com.example.go.webstockapp.ui.notifications.NotificationAndLink
 
 @Dao
 interface NotificationDao {
     @Query("select * from notification")
     fun getAllNotifications(): LiveData<List<Notification>>
+
+    @Transaction
+    @Query("select * from notification")
+    fun getAllNotificationWithLink(): LiveData<List<NotificationAndLink>>
 
     @Query("select * from notification where id = :id")
     fun getNotification(id: Long): LiveData<Notification>
