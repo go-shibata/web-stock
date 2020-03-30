@@ -16,7 +16,7 @@ import com.example.go.webstockapp.database.entity.Notification
         Notification::class
     ], version = 1, exportSchema = false
 )
-@TypeConverters(DateConverter::class)
+@TypeConverters(DateConverter::class, UUIDConverter::class)
 abstract class MyDatabase : RoomDatabase() {
 
     abstract fun linkDao(): LinkDao

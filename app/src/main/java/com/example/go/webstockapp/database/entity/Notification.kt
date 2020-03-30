@@ -10,6 +10,7 @@ import java.util.*
 class Notification(
     var notifyDate: Date? = null,
     var linkId: Long,
+    var requestId: UUID,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var isCompleted: Boolean = false
 )
