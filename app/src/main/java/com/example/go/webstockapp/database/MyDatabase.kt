@@ -6,13 +6,21 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.go.webstockapp.database.dao.LinkDao
+import com.example.go.webstockapp.database.dao.NotificationDao
 import com.example.go.webstockapp.database.entity.Link
+import com.example.go.webstockapp.database.entity.Notification
 
-@Database(entities = [Link::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        Link::class,
+        Notification::class
+    ], version = 1, exportSchema = false
+)
 @TypeConverters(DateConverter::class)
 abstract class MyDatabase : RoomDatabase() {
 
     abstract fun linkDao(): LinkDao
+    abstract fun notificationDao(): NotificationDao
 
     companion object {
         @Volatile
