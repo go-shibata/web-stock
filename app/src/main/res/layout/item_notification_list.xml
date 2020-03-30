@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.format.DateFormat" />
+
+        <variable
+            name="notification"
+            type="com.example.go.webstockapp.database.entity.Notification" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/saved_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{DateFormat.format(`yyyy/MM/dd kk:mmに保存`, notification.savedDate)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/notify_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{DateFormat.format(`yyyy/MM/dd kk:mmに通知`, notification.notifyDate)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/saved_date" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

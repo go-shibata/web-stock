@@ -1,13 +1,13 @@
 package com.example.go.webstockapp.ui.notifications
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.example.go.webstockapp.database.MyDatabase
+import javax.inject.Inject
 
-class NotificationsViewModel : ViewModel() {
+class NotificationsViewModel @Inject constructor(
+    app: Application
+) : AndroidViewModel(app) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+    val notifications = MyDatabase.getInstance(app).notificationDao().getAllNotifications()
 }

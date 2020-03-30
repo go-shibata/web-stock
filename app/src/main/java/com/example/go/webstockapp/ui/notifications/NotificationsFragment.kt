@@ -4,28 +4,47 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.example.go.webstockapp.R
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.go.webstockapp.database.entity.Notification
+import com.example.go.webstockapp.databinding.FragmentNotificationsBinding
+import com.example.go.webstockapp.di.ViewModelFactory
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class NotificationsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory<NotificationsViewModel>
+
+    private val viewModel: NotificationsViewModel by activityViewModels { factory }
+    private val onClickNotificationListener =
+        object : NotificationListAdapter.OnClickNotificationListener {
+            override fun onClickNotification(notification: Notification) {
+                TODO()
+            }
+
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        val binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.notificationList.apply {
+            adapter = NotificationListAdapter(this@NotificationsFragment, viewModel).apply {
+                setOnClickNotificationListener(onClickNotificationListener)
+            }
+            layoutManager = LinearLayoutManager(context)
+        }
+        return binding.root
     }
 }
