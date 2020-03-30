@@ -8,7 +8,8 @@ import java.util.*
 @Entity(tableName = "notification")
 @ForeignKey(entity = Link::class, parentColumns = ["id"], childColumns = ["linkId"])
 class Notification(
-    var notifyDate: Date? = null,
+    var savedDate: Date,
+    var notifyDate: Date,
     var linkId: Long,
     var requestId: UUID,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
