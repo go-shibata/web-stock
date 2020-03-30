@@ -15,6 +15,7 @@ import com.example.go.webstockapp.database.entity.Link
 import com.example.go.webstockapp.databinding.DialogAddLinkBinding
 import com.example.go.webstockapp.databinding.FragmentHomeBinding
 import com.example.go.webstockapp.di.ViewModelFactory
+import com.example.go.webstockapp.ui.MyDateTimePickerDialog
 import com.example.go.webstockapp.ui.MyDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -102,7 +103,9 @@ class HomeFragment : Fragment() {
                 viewModel.notifyLink(link, calendar.timeInMillis)
             }
         }
-        MyDateTimePickerDialog(parentFragmentManager).apply {
+        MyDateTimePickerDialog(
+            parentFragmentManager
+        ).apply {
             setOnDateTimeSetListener(onDateTimeSetListener)
         }.show()
     }

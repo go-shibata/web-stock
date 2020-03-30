@@ -1,4 +1,4 @@
-package com.example.go.webstockapp.ui.home
+package com.example.go.webstockapp.ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -14,14 +14,18 @@ class MyDateTimePickerDialog(
     private var onDateTimeSetListener: OnDateTimeSetListener? = null
     private val onDateSetListener by lazy {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            MyTimePickerDialog(checkNotNull(onDateTimeSetListener)).apply {
+            MyTimePickerDialog(
+                checkNotNull(onDateTimeSetListener)
+            ).apply {
                 setDate(year, month, dayOfMonth)
             }.show(fragmentManager, null)
         }
     }
 
     fun show() {
-        MyDatePickerDialog(onDateSetListener).show(fragmentManager, null)
+        MyDatePickerDialog(
+            onDateSetListener
+        ).show(fragmentManager, null)
     }
 
     fun setOnDateTimeSetListener(listener: OnDateTimeSetListener) {

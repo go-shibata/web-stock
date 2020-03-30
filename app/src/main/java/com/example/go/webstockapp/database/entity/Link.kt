@@ -11,8 +11,7 @@ data class Link(
     var savedDate: Date,
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var isChecked: Boolean = false,
-    var checkedDate: Date? = null,
-    var notifyDate: Date? = null
+    var checkedDate: Date? = null
 ) {
     val domain: String?
         get() {
