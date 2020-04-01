@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
 import com.example.go.webstockapp.R
 import com.example.go.webstockapp.databinding.FragmentNotificationsBinding
 import com.example.go.webstockapp.di.ViewModelFactory
@@ -27,7 +27,7 @@ class NotificationsFragment : Fragment() {
 
     private val viewModel: NotificationsViewModel by activityViewModels { factory }
     private val onClickNotificationListener =
-        object : NotificationListAdapter.OnClickNotificationListener {
+        object : NotificationsEpoxyController.OnClickNotificationListener {
             override fun onClickNotification(notification: NotificationAndLink) {
                 val builder = AlertDialog.Builder(requireContext())
                     .setTitle(
@@ -49,6 +49,8 @@ class NotificationsFragment : Fragment() {
                     .show(parentFragmentManager, null)
             }
         }
+    private val notificationListController =
+        NotificationsEpoxyController(onClickNotificationListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -63,11 +65,12 @@ class NotificationsFragment : Fragment() {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.notificationList.apply {
-            adapter = NotificationListAdapter(this@NotificationsFragment, viewModel).apply {
-                setOnClickNotificationListener(onClickNotificationListener)
-            }
-            layoutManager = LinearLayoutManager(context)
-        }
+            setController(notificationListController)
+        }.requestModelBuild()
+
+        viewModel.notifications.observe(this.viewLifecycleOwner, Observer {
+            notificationListController.setData(it)
+        })
         return binding.root
     }
 
