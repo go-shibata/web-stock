@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
 import com.example.go.webstockapp.R
 import com.example.go.webstockapp.database.entity.Link
 import com.example.go.webstockapp.databinding.DialogAddLinkBinding
@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by activityViewModels { factory }
-    private val onClickLinkListener = object : LinkListAdapter.OnClickLinkListener {
+    private val onClickLinkListener = object : HomeEpoxyController.OnClickLinkListener {
         override fun onClickLink(link: Link) {
             val builder = AlertDialog.Builder(requireContext())
                 .setTitle(link.title)
@@ -47,6 +47,7 @@ class HomeFragment : Fragment() {
                 .show(parentFragmentManager, null)
         }
     }
+    private val linkListController = HomeEpoxyController(onClickLinkListener)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -62,11 +63,12 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.fragment = this
         binding.linkList.apply {
-            adapter = LinkListAdapter(this@HomeFragment, viewModel).apply {
-                setOnClickLinkListener(onClickLinkListener)
-            }
-            layoutManager = LinearLayoutManager(context)
-        }
+            setController(linkListController)
+        }.requestModelBuild()
+
+        viewModel.links.observe(this.viewLifecycleOwner, Observer { links ->
+            linkListController.setData(links)
+        })
         return binding.root
     }
 

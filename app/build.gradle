@@ -38,10 +38,21 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
+    def coroutinesVersion = '1.3.2'
+    def navigationVersion = '2.2.1'
+    def roomVersion = '1.1.1'
+    def workVersion = '1.0.1'
+    def daggerVersion = '2.27'
+    def picassoVersion = '2.71828'
+    def jsoupVersion = '1.13.1'
+    def epoxyVersion = '3.9.0'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -51,30 +62,25 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // coroutine
-    def coroutinesVersion = '1.3.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     // navigation
-    def navigationVersion = '2.2.1'
     implementation "androidx.navigation:navigation-fragment:$navigationVersion"
     implementation "androidx.navigation:navigation-ui:$navigationVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     // room
-    def roomVersion = '1.1.1'
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     kapt "android.arch.persistence.room:compiler:$roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
 
     // workManager
-    def workVersion = '1.0.1'
     implementation "android.arch.work:work-runtime:$workVersion"
     implementation "android.arch.work:work-runtime-ktx:$workVersion"
 
     // dagger
-    def daggerVersion = '2.27'
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
@@ -84,12 +90,15 @@ dependencies {
     kaptTest "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     // picasso
-    def picassoVersion = '2.71828'
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     // jsoup
-    def jsoupVersion = '1.13.1'
     implementation "org.jsoup:jsoup:$jsoupVersion"
+
+    // epoxy
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
