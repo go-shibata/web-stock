@@ -47,6 +47,7 @@ class HomeFragment : Fragment() {
                 .show(parentFragmentManager, null)
         }
     }
+    private val linkListController: HomeEpoxyController = HomeEpoxyController(onClickLinkListener)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -61,10 +62,12 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.fragment = this
+        binding.linkList.apply {
+            setController(linkListController)
+        }.requestModelBuild()
+
         viewModel.links.observe(this.viewLifecycleOwner, Observer { links ->
-            binding.linkList.apply {
-                setController(HomeEpoxyController(links, onClickLinkListener))
-            }.requestModelBuild()
+            linkListController.setData(links)
         })
         return binding.root
     }

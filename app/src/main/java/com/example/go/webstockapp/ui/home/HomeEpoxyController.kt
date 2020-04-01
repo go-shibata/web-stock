@@ -9,9 +9,16 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_link_list.view.*
 
 class HomeEpoxyController(
-    val data: List<Link>,
     val listener: OnClickLinkListener
 ) : EpoxyController() {
+
+    private var data: List<Link> = emptyList()
+
+    fun setData(data: List<Link>) {
+        this.data = data
+        requestModelBuild()
+    }
+
     override fun buildModels() {
         data.forEach {
             itemLinkList {
