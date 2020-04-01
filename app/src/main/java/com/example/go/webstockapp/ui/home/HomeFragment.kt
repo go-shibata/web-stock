@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
                 .show(parentFragmentManager, null)
         }
     }
-    private val linkListController: HomeEpoxyController = HomeEpoxyController(onClickLinkListener)
+    private val linkListController = HomeEpoxyController(onClickLinkListener)
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
